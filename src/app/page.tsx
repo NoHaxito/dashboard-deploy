@@ -1,13 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { DotOutline, House } from "@phosphor-icons/react/dist/ssr";
-import { getAllApps } from "./api/apps/route";
+import { DotOutline } from "@phosphor-icons/react/dist/ssr";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/dayjs";
 import Link from "next/link";
-
-export const revalidate = 5;
-export const dynamic = "force-dynamic";
+import { getAllApps } from "@/services/app";
 
 export default async function Home() {
   const allApps = await getAllApps();

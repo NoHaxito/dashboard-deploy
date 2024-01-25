@@ -1,4 +1,4 @@
-import { execa } from "execa";
+import { getAppStats } from "@/services/app";
 
 function iteratorToStream(iterator: any) {
   return new ReadableStream({
@@ -38,16 +38,4 @@ export async function GET(
   response.headers.set("Content-Type", "application/json");
 
   return response;
-}
-
-async function getAppStats(appId: string) {
-  const { stdout } = await execa("docker", [
-    "container",
-    "stats",
-    appId,
-    "--format",
-    "json",
-    "--no-stream",
-  ]);
-  return stdout;
 }

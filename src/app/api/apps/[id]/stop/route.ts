@@ -1,5 +1,5 @@
+import { stopApp } from "@/services/app";
 import { NextResponse } from "next/server";
-import { stopApp } from "../route";
 
 export async function GET(
   req: Request,

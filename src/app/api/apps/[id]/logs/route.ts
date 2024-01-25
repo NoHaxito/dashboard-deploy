@@ -1,7 +1,8 @@
+import { getAppLogs } from "@/services/app";
 import { execa } from "execa";
 import { NextResponse } from "next/server";
 
-export default async function GET(
+export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
@@ -11,10 +12,4 @@ export default async function GET(
   } catch (error: any) {
     return NextResponse.json({ error: error.stderr });
   }
-}
-
-export async function getAppLogs(appId: string) {
-  const { stdout } = await execa("docker", ["container", "logs", appId, "-t"]);
-
-  return stdout;
 }

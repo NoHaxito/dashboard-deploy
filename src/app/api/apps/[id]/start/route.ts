@@ -1,5 +1,5 @@
+import { startApp } from "@/services/app";
 import { NextResponse } from "next/server";
-import { startApp } from "../route";
 
 export async function GET(
   req: Request,

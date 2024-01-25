@@ -1,15 +1,11 @@
 import { DotOutline } from "@phosphor-icons/react/dist/ssr";
-import { getApp } from "../api/apps/[id]/route";
 import { cn } from "@/lib/utils";
 import { ActionButtons } from "@/components/apps/action-buttons";
-import { getAppLogs } from "../api/apps/[id]/logs/route";
 import { UptimeCounter } from "@/components/apps/uptime-counter";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { AppLogs } from "@/components/apps/app-logs";
-
-export const revalidate = 5;
-export const dynamic = "force-dynamic";
+import { getApp, getAppLogs } from "@/services/app";
 
 export default async function AppPage({
   params,

@@ -1,5 +1,5 @@
+import { restartApp } from "@/services/app";
 import { NextResponse } from "next/server";
-import { restartApp } from "../route";
 
 export async function GET(
   req: Request,
