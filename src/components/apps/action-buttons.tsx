@@ -26,9 +26,7 @@ export function ActionButtons({ app }: { app: any }) {
     const data = await res.json();
     router.refresh();
     setLoading({ ...loading, start: false });
-    toast("App is now starting", {
-      // description: "Monday, January 3rd at 6:00pm",
-    });
+    toast.success("App started succesfully", {});
   }
   async function restartApp() {
     setLoading({ ...loading, restart: true });
@@ -36,9 +34,7 @@ export function ActionButtons({ app }: { app: any }) {
     const data = await res.json();
     router.refresh();
     setLoading({ ...loading, restart: false });
-    toast("App is now restarting", {
-      // description: "Monday, January 3rd at 6:00pm",
-    });
+    toast.success("App restarted succesfully", {});
   }
   async function stopApp() {
     setLoading({ ...loading, stop: true });
@@ -46,9 +42,7 @@ export function ActionButtons({ app }: { app: any }) {
     const data = await res.json();
     router.refresh();
     setLoading({ ...loading, stop: false });
-    toast("App is now stopped", {
-      // description: "Monday, January 3rd at 6:00pm",
-    });
+    toast.success("App stopped succesfully", {});
   }
 
   return (
@@ -60,7 +54,11 @@ export function ActionButtons({ app }: { app: any }) {
         variant="green"
         size="sm"
         left={
-          loading.start ? <CircleNotch className="animate-spin" /> : <Play />
+          loading.start ? (
+            <CircleNotch className="animate-spin" />
+          ) : (
+            <Play weight="fill" />
+          )
         }
       >
         Start
@@ -88,7 +86,11 @@ export function ActionButtons({ app }: { app: any }) {
         variant="destructive"
         size="sm"
         left={
-          loading.stop ? <CircleNotch className="animate-spin" /> : <Stop />
+          loading.stop ? (
+            <CircleNotch className="animate-spin" />
+          ) : (
+            <Stop weight="fill" />
+          )
         }
       >
         Stop

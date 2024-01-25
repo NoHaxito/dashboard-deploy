@@ -21,6 +21,7 @@ export async function getAppLogs(appId: string) {
 
   return stdout;
 }
+
 export async function getApp(appId: string) {
   const { stdout } = await execa("docker", ["container", "inspect", appId]);
 
@@ -61,6 +62,17 @@ export async function getAppStats(appId: string) {
     "--format",
     "json",
     "--no-stream",
+  ]);
+  return stdout;
+}
+
+export function getStreamLogs(appId: string) {
+  const stdout = execa("docker", [
+    "container",
+    "logs",
+    appId,
+    "--follow",
+    "-t",
   ]);
   return stdout;
 }

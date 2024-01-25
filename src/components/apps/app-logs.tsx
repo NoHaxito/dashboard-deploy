@@ -3,19 +3,20 @@
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { CaretDown } from "@phosphor-icons/react";
+import { dayjs } from "@/lib/dayjs";
 
 export function AppLogs({ logs }: { logs: string | null }) {
   const [showScrollButton, setShowScrollButton] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      const container = document.getElementById("logs-container"); // Reemplaza 'tuContenedor' con el ID de tu contenedor
+      const container = document.getElementById("logs-container");
       if (!container) return;
       const shouldShowButton =
         container.scrollTop + container.clientHeight < container.scrollHeight;
       setShowScrollButton(shouldShowButton);
     };
 
-    const container = document.getElementById("logs-container"); // Reemplaza 'tuContenedor' con el ID de tu contenedor
+    const container = document.getElementById("logs-container");
     if (!container) return;
     container.addEventListener("scroll", handleScroll);
 
@@ -26,21 +27,38 @@ export function AppLogs({ logs }: { logs: string | null }) {
   }, []);
 
   const scrollToBottom = () => {
-    const container = document.getElementById("logs-container"); // Reemplaza 'tuContenedor' con el ID de tu contenedor
+    const container = document.getElementById("logs-container");
     if (!container) return;
     container.scrollTo({
       top: container.scrollHeight,
       behavior: "smooth",
     });
   };
+  const logsArray = logs?.split("\n") ?? [];
   return (
     <>
       {logs !== null && (
         <div
           id="logs-container"
-          className="relative overflow-hidden overflow-y-auto overflow-x-auto bg-neutral-200 rounded-lg p-2 max-h-[420px] min-h-[400px] dark:bg-neutral-900"
+          className="col-span-3 grid relative overflow-hidden overflow-y-auto overflow-x-auto bg-neutral-200 rounded-lg p-2 max-h-[420px] min-h-[400px] dark:bg-neutral-900"
         >
-          <pre className="px-2 text-sm dark:text-neutral-400">{logs}</pre>
+          <pre className="px-1">
+            {logsArray.map((line, idx) => {
+              const date = line.substring(0, 30);
+              const log = line.substring(30);
+              return (
+                <div
+                  className="flex items-center gap-x-1 px-2 py-1 dark:text-neutral-300 text-sm rounded-lg dark:hover:bg-neutral-800"
+                  key={idx}
+                >
+                  <span className="text-neutral-500">
+                    [{dayjs(date).format("YYYY-MM-DD HH:mm")}]
+                  </span>
+                  <p>{log}</p>
+                </div>
+              );
+            })}
+          </pre>
 
           {showScrollButton && (
             <Button
@@ -55,7 +73,7 @@ export function AppLogs({ logs }: { logs: string | null }) {
         </div>
       )}
       {logs === null && (
-        <div className="flex items-center justify-center bg-neutral-200 rounded-lg p-2 max-h-[450px] min-h-[400px] dark:bg-neutral-900">
+        <div className="col-span-3 flex items-center justify-center bg-neutral-200 rounded-lg p-2 max-h-[450px] min-h-[400px] dark:bg-neutral-900">
           Start app to see logs.
         </div>
       )}
