@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ModeToggle } from "@/components/theme-toggle";
+import { ProgressBarProvider } from "@/components/providers/progressbar-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +20,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={cn("relative", inter.className)}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ProgressBarProvider>
+            <div className="relative flex min-h-screen flex-col dark:bg-neutral-950">
+              <div className="container mx-auto relative flex-1 py-4">
+                <div className="absolute top-4 right-4">
+                  <ModeToggle />
+                </div>
+                {children}
+              </div>
+            </div>
+          </ProgressBarProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
