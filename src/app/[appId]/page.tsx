@@ -1,18 +1,12 @@
-import {
-  ArrowCounterClockwise,
-  DotOutline,
-  Play,
-  Stop,
-} from "@phosphor-icons/react/dist/ssr";
-import { getApp, restartApp, startApp, stopApp } from "../api/apps/[id]/route";
+import { DotOutline } from "@phosphor-icons/react/dist/ssr";
+import { getApp } from "../api/apps/[id]/route";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { ActionButtons } from "@/components/apps/action-buttons";
 import { getAppLogs } from "../api/apps/[id]/logs/route";
-import { dayjs } from "@/lib/dayjs";
 import { UptimeCounter } from "@/components/apps/uptime-counter";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { AppLogs } from "@/components/apps/app-logs";
 
 export const revalidate = 5;
 export const dynamic = "force-dynamic";
@@ -60,16 +54,7 @@ export default async function AppPage({
       <ActionButtons app={app} />
       <div className="space-y-2">
         <h3 className="text-md font-medium">Console (logs)</h3>
-        {appLogs !== null && (
-          <div className="overflow-hidden overflow-y-auto overflow-x-auto bg-neutral-200 rounded-lg p-2 max-h-[450px] min-h-[400px] dark:bg-neutral-900">
-            <pre>{appLogs}</pre>
-          </div>
-        )}
-        {appLogs === null && (
-          <div className="flex items-center justify-center bg-neutral-200 rounded-lg p-2 max-h-[450px] min-h-[400px] dark:bg-neutral-900">
-            Start app to see logs.
-          </div>
-        )}
+        <AppLogs logs={appLogs} />
       </div>
     </div>
   );

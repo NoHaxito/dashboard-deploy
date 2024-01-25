@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ModeToggle } from "@/components/theme-toggle";
 import { ProgressBarProvider } from "@/components/providers/progressbar-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
+            <Toaster />
           </ProgressBarProvider>
         </ThemeProvider>
       </body>
