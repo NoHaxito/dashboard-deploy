@@ -9,10 +9,16 @@ import Link from "next/link";
 export const revalidate = 5;
 export const dynamic = "force-dynamic";
 
-async function getAppDetails(appId: string) {
+async function fetchApp(appId: string) {
   try {
-    const app = ((await getApp(appId)) as any[])[0];
-    return { app };
+    const req = await fetch(
+      "http://deploy.nohaxito.xyz:3000/api/apps/" + appId
+    );
+    const res: any = await req.json();
+    if (res.error) {
+      return { error: res.error };
+    }
+    return { app: res[0] };
   } catch (error: any) {
     return { error: error.stderr };
   }
@@ -26,7 +32,7 @@ export default async function AppLayout({
   params: { appId: string };
   console: React.ReactNode;
 }) {
-  const { app, error } = await getAppDetails(params.appId);
+  const { app, error } = await fetchApp(params.appId);
   if (error) {
     throw new Error(error);
   }

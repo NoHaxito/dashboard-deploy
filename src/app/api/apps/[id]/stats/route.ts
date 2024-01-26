@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const stdout = await getAppStats(params.id);
-    revalidatePath("/[appId]", "page");
+    revalidatePath("/[appId]", "layout");
     return NextResponse.json(JSON.parse(stdout));
   } catch (error: any) {
     return NextResponse.json({ error: error.stderr });

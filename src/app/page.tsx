@@ -4,10 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/dayjs";
 import Link from "next/link";
-import { getAllApps } from "@/services/app";
+
+export const revalidate = 5;
+export const dynamic = "force-dynamic";
+
+const fetchApps = async () => {
+  const res = await fetch("http://deploy.nohaxito.xyz:3000/api/apps");
+  const data: any[] = await res.json();
+  return data;
+};
 
 export default async function Home() {
-  const allApps = await getAllApps();
+  const allApps = await fetchApps();
   return (
     <div>
       <div className="grid md:grid-cols-3 gap-2 sm:grid-cols-2">
