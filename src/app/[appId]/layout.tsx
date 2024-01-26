@@ -6,6 +6,17 @@ import { getApp, getAppLogs } from "@/services/app";
 import { DotOutline } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 
+export const revalidate = 5;
+export const dynamic = "force-dynamic";
+
+async function getAppDetails(appId: string) {
+  try {
+    const app = ((await getApp(appId)) as any[])[0];
+    return { app };
+  } catch (error: any) {
+    return { error: error.stderr };
+  }
+}
 export default async function AppLayout({
   children,
   params,
@@ -15,8 +26,10 @@ export default async function AppLayout({
   params: { appId: string };
   console: React.ReactNode;
 }) {
-  const app = ((await getApp(params.appId)) as any[])[0];
-
+  const { app, error } = await getAppDetails(params.appId);
+  if (error) {
+    throw new Error(error);
+  }
   return (
     <div className="space-y-3">
       <div className="space-y-1.5">

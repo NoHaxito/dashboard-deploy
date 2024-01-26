@@ -1,4 +1,5 @@
 import { getAppStats } from "@/services/app";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -7,6 +8,7 @@ export async function GET(
 ) {
   try {
     const stdout = await getAppStats(params.id);
+    revalidatePath("/[appId]", "page");
     return NextResponse.json(JSON.parse(stdout));
   } catch (error: any) {
     return NextResponse.json({ error: error.stderr });
