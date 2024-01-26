@@ -9,6 +9,7 @@ async function getAppDetails(appId: string) {
     return { error: error.stderr };
   }
 }
+
 export default async function AppPage({
   params,
 }: {

@@ -1,5 +1,4 @@
 import { execa } from "execa";
-import { revalidatePath } from "next/cache";
 
 export async function getAllApps() {
   const { stdout } = await execa("docker", [
@@ -30,7 +29,6 @@ export async function getApp(appId: string) {
 export async function startApp(appId: string) {
   try {
     const { stdout } = await execa("docker", ["container", "start", appId]);
-    revalidatePath("/[appId]", "page");
     return { status: "starting", stdout };
   } catch (error: any) {
     return { status: "failed", error: error.stderr };
@@ -39,7 +37,6 @@ export async function startApp(appId: string) {
 export async function stopApp(appId: string) {
   try {
     const { stdout } = await execa("docker", ["container", "stop", appId]);
-    revalidatePath("/[appId]", "page");
     return { status: "stopped", stdout };
   } catch (error: any) {
     return { status: "failed", error: error.stderr };
@@ -48,7 +45,6 @@ export async function stopApp(appId: string) {
 export async function restartApp(appId: string) {
   try {
     const { stdout } = await execa("docker", ["container", "restart", appId]);
-    revalidatePath("/[appId]", "page");
     return { status: "restarting", stdout };
   } catch (error: any) {
     return { status: "failed", error: error.stderr };

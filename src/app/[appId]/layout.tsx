@@ -2,12 +2,10 @@ import { ActionButtons } from "@/components/apps/action-buttons";
 import { UptimeCounter } from "@/components/apps/uptime-counter";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { getApp, getAppLogs } from "@/services/app";
 import { DotOutline } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 
-export const revalidate = 5;
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 async function fetchApp(appId: string) {
   try {

@@ -5,9 +5,6 @@ import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/dayjs";
 import Link from "next/link";
 
-export const revalidate = 5;
-export const dynamic = "force-dynamic";
-
 const fetchApps = async () => {
   const res = await fetch("http://deploy.nohaxito.xyz:3000/api/apps");
   const data: any[] = await res.json();

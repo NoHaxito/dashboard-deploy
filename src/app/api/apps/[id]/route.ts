@@ -1,7 +1,7 @@
 import { getApp } from "@/services/app";
-import { execa } from "execa";
-import { revalidatePath } from "next/cache";
+
 import { NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 export async function GET(
   req: Request,
   { params }: { params: { id: string } }
