@@ -22,19 +22,19 @@ export function AppUsage() {
   }, []);
   return (
     <>
-      <Card>
+      <Card className="dark:bg-neutral-900 bg-neutral-100">
         <CardHeader className="space-y-0 px-4 py-4">
           <CardTitle className="text-2xl">CPU Usage</CardTitle>
         </CardHeader>
         <CardContent className="px-4 py-2">{cpuUsage}</CardContent>
       </Card>
-      <Card>
+      <Card className="dark:bg-neutral-900 bg-neutral-100">
         <CardHeader className="space-y-0 px-4 py-4">
           <CardTitle className="text-2xl">RAM Usage</CardTitle>
         </CardHeader>
         <CardContent className="px-4 py-2">{ramUsage}</CardContent>
       </Card>
-      <Card>
+      <Card className="dark:bg-neutral-900 bg-neutral-100">
         <CardHeader className="space-y-0 px-4 py-4">
           <CardTitle className="text-2xl">NET Usage</CardTitle>
         </CardHeader>

@@ -1,6 +1,7 @@
 import { ActionButtons } from "@/components/apps/action-buttons";
 import { UptimeCounter } from "@/components/apps/uptime-counter";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { DotOutline } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
@@ -67,7 +68,14 @@ export default async function AppLayout({
       </div>
       <Separator />
       <ActionButtons app={app} />
-      {console}
+      <Tabs defaultValue="logs">
+        <TabsList>
+          <TabsTrigger value="logs">Logs</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabsContent value="logs">{console}</TabsContent>
+        <TabsContent value="settings">Settings page</TabsContent>
+      </Tabs>
       {children}
     </div>
   );

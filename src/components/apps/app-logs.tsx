@@ -40,7 +40,7 @@ export function AppLogs({ logs }: { logs: string | null }) {
       {logs !== null && (
         <div
           id="logs-container"
-          className="col-span-3 grid relative overflow-hidden overflow-y-auto overflow-x-auto bg-neutral-100 rounded-lg p-2 max-h-[420px] min-h-[400px] dark:bg-neutral-900"
+          className="border dark:border-neutral-800 col-span-3 grid relative overflow-hidden overflow-y-auto overflow-x-auto bg-neutral-100 rounded-lg p-2 max-h-[420px] min-h-[400px] dark:bg-neutral-900"
         >
           <pre className="px-1">
             {logsArray.map((line, idx) => {
@@ -73,7 +73,7 @@ export function AppLogs({ logs }: { logs: string | null }) {
         </div>
       )}
       {logs === null && (
-        <div className="col-span-3 flex items-center justify-center bg-neutral-100 rounded-lg p-2 max-h-[450px] min-h-[400px] dark:bg-neutral-900">
+        <div className="border dark:border-neutral-800 col-span-3 flex items-center justify-center bg-neutral-100 rounded-lg p-2 max-h-[450px] min-h-[400px] dark:bg-neutral-900">
           Start app to see logs.
         </div>
       )}

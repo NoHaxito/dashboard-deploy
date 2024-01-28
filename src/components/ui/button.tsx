@@ -20,7 +20,7 @@ const buttonVariants = cva(
         secondary:
           "bg-neutral-100 text-neutral-900 hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-800/80",
         ghost:
-          "hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
+          "hover:bg-neutral-200 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:hover:text-neutral-50",
         link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50",
       },
       size: {
@@ -78,9 +78,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {left && left}
-        {children}
-        {right && <span className="ml-auto">{right}</span>}
+        {asChild ? (
+          React.cloneElement(children as React.ReactElement, {
+            children: (
+              <>
+                {left ? left : null}
+                {/* @ts-ignore */}
+                {children?.props?.children}
+                {right ? <span className="ml-auto">{right}</span> : null}
+              </>
+            ),
+          })
+        ) : (
+          <>
+            {left ? left : null}
+            {children}
+            {right ? <span className="ml-auto">{right}</span> : null}
+          </>
+        )}
       </Comp>
     );
   }

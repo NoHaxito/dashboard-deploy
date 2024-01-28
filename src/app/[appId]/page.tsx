@@ -18,7 +18,6 @@ export default async function AppPage({
   return (
     <section className="space-y-2">
       <h3 className="text-md font-medium">Environment Variables</h3>
-      {/* <AppLogs logs={appLogs} /> */}
     </section>
   );
 }

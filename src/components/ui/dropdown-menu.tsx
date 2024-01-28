@@ -99,6 +99,7 @@ const DropdownMenuItem = React.forwardRef<
 >(
   (
     {
+      asChild,
       className,
       left,
       right,
@@ -118,15 +119,38 @@ const DropdownMenuItem = React.forwardRef<
         rounded,
         className: cn(className, inset && "pl-8"),
       })}
+      asChild={asChild}
       {...props}
     >
-      {left && left}
-      {children}
-      {right && <span className="ml-auto">{right}</span>}
-      {shortcut && !right && (
-        <span className="ml-auto text-xs tracking-widest opacity-60">
-          {shortcut}
-        </span>
+      {asChild ? (
+        React.cloneElement(children as React.ReactElement, {
+          children: (
+            <>
+              {left ? left : null}
+              {/* @ts-ignore */}
+              {children?.props?.children}
+              {shortcut && !right ? (
+                <span className="ml-auto text-xs tracking-widest opacity-60">
+                  {shortcut}
+                </span>
+              ) : (
+                <span className="ml-auto">{right}</span>
+              )}
+            </>
+          ),
+        })
+      ) : (
+        <>
+          {left ? left : null}
+          {children}
+          {shortcut && !right ? (
+            <span className="ml-auto text-xs tracking-widest opacity-60">
+              {shortcut}
+            </span>
+          ) : (
+            <span className="ml-auto">{right}</span>
+          )}
+        </>
       )}
     </DropdownMenuPrimitive.Item>
   )
