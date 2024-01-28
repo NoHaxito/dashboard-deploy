@@ -1,0 +1,21 @@
+version: "3"
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
+services:
+  dashboard-deploy:
+    container_name: dashboard-deploy
+    image: dashboard-deploy:latest
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard-deploy.rule=Host(`console.deploy.nohaxito.xyz`)
+      - traefik.http.routers.dashboard-deploy.tls=true
+      - traefik.http.routers.dashboard-deploy.tls.certresolver=lets-encrypt
+      - traefik.port=80
+    networks:
+      - internal
+      - web

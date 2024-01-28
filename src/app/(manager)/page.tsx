@@ -10,6 +10,8 @@ const fetchApps = async () => {
   const data: any[] = await res.json();
   return data;
 };
+export const revalidate = 5;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const allApps = await fetchApps();

@@ -16,5 +16,5 @@ export async function GET() {
     sessionCookie.value,
     sessionCookie.attributes
   );
-  return redirect("/");
+  return redirect("/auth/login");
 }

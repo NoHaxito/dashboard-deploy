@@ -65,7 +65,7 @@ export async function logout() {
     sessionCookie.value,
     sessionCookie.attributes
   );
-  return redirect("/");
+  return redirect("/auth/login");
 }
 
 export const lucia = new Lucia(adapter, {
