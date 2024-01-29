@@ -23,7 +23,6 @@ export async function GET(request: Request): Promise<Response> {
       },
     });
     const githubUser: GitHubUser = await githubUserResponse.json();
-    console.log(githubUser);
     const existingUser = await db
       .selectFrom("oauth_account")
       .selectAll()
@@ -86,16 +85,16 @@ export async function GET(request: Request): Promise<Response> {
         Location: "/",
       },
     });
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     // the specific error message depends on the provider
     if (e instanceof OAuth2RequestError) {
       // invalid code
-      return new Response(null, {
+      return new Response(e.message, {
         status: 400,
       });
     }
-    return new Response(null, {
+    return new Response(e.message, {
       status: 500,
     });
   }
