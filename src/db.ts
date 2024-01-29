@@ -2,9 +2,9 @@ import { Pool } from "pg";
 import { Kysely, PostgresDialect } from "kysely";
 
 const config = {
-  user: "avnadmin",
-  password: "AVNS_Kp2nix19LcJJTS2x9hP",
-  host: "pg-e927921-santifeb2034-7ec5.a.aivencloud.com",
+  user: process.env.POSTGRESQL_USER,
+  password: process.env.POSTGRESQL_PASSWORD,
+  host: process.env.POSTGRESQL_HOST,
   port: 19091,
   database: "defaultdb",
   ssl: {

@@ -7,15 +7,15 @@ networks:
     external: false
 
 services:
-  dashboard-deploy:
-    container_name: dashboard-deploy
-    image: dashboard-deploy:latest
+  console:
+    container_name: console
+    image: console:latest
     labels:
       - traefik.enable=true
-      - traefik.http.routers.dashboard-deploy.rule=Host(`console.deploy.nohaxito.xyz`)
-      - traefik.http.routers.dashboard-deploy.tls=true
-      - traefik.http.routers.dashboard-deploy.tls.certresolver=lets-encrypt
-      - traefik.port=80
+      - traefik.http.routers.console.rule=Host(`console.deploy.nohaxito.xyz`)
+      - traefik.http.routers.console.tls=true
+      - traefik.http.routers.console.tls.certresolver=lets-encrypt
     networks:
       - internal
       - web
+    restart: always

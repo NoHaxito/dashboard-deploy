@@ -1,9 +1,9 @@
 FROM node:18-alpine as test-target
 ENV NODE_ENV=development
-ENV PATH $PATH:/usr/src/dashboard-deploy/node_modules/.bin
+ENV PATH $PATH:/usr/src/app/node_modules/.bin
 
 RUN apk --no-cache add git
-WORKDIR /usr/src/dashboard-deploy
+WORKDIR /usr/src/app
 
 RUN git clone https://github.com/nohaxito/dashboard-deploy.git .
 
@@ -34,11 +34,11 @@ RUN pnpm prune --production
 # Archive
 FROM node:18-alpine as archive-target
 ENV NODE_ENV=production
-ENV PATH $PATH:/usr/src/dashboard-deploy/node_modules/.bin
+ENV PATH $PATH:/usr/src/app/node_modules/.bin
 
-WORKDIR /usr/src/dashboard-deploy
+WORKDIR /usr/src/app
 
 # Include only the release build and production packages.
-COPY --from=build-target /usr/src/dashboard-deploy/node_modules node_modules
-COPY --from=build-target /usr/src/dashboard-deploy/.next .next
+COPY --from=build-target /usr/src/app/node_modules node_modules
+COPY --from=build-target /usr/src/app/.next .next
 CMD ["next", "start"]
