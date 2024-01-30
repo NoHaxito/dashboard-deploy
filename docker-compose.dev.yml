@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  console:
+    container_name: console
+    build:
+      context: ./
+      dockerfile: dev.Dockerfile
+
+    # Set environment variables directly in the docker-compose file
+    environment:
+      POSTGRESQL_HOST: ${POSTGRESQL_HOST}
+      POSTGRESQL_USER: ${POSTGRESQL_USER}
+      POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+
+    # Set environment variables based on the .env file
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    restart: always
+    networks:
+      - internal
+      - web
+    labels:
+      - traefik.http.routers.console.rule=Host(`console.nohaxito.xyz`)
+      - traefik.http.routers.console.tls=true
+      - traefik.http.routers.console.tls.certresolver=lets-encrypt
+      - traefik.http.services.console.loadbalancer.server.port=3000
+      - traefik.port=80
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false

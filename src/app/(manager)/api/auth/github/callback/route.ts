@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
 
-export async function GET(request: Request): Promise<Response> {
+export async function GET(request: Request): Promise<Response | undefined> {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
@@ -23,15 +23,28 @@ export async function GET(request: Request): Promise<Response> {
       },
     });
     const githubUser: GitHubUser = await githubUserResponse.json();
+    const userAlreadyRegistered = await db
+      .selectFrom("auth_user")
+      .selectAll()
+      .where("email", "=", githubUser.email)
+      .executeTakeFirst();
+    // if (userAlreadyRegistered) {
+    //   return new Response(
+    //     "User already registered with this email. Please log-in and link your account with this provider.",
+    //     {
+    //       status: 400,
+    //     }
+    //   );
+    // }
     const existingUser = await db
       .selectFrom("oauth_account")
       .selectAll()
       .where("provider_id", "=", "github")
       .where("provider_user_id", "=", githubUser.id)
-      .execute();
+      .executeTakeFirst();
 
-    if (existingUser[0]) {
-      const session = await lucia.createSession(existingUser[0].user_id, {
+    if (existingUser) {
+      const session = await lucia.createSession(existingUser.user_id, {
         username: githubUser.login,
         email: githubUser.email,
         avatar_url: githubUser.avatar_url,
@@ -86,7 +99,6 @@ export async function GET(request: Request): Promise<Response> {
       },
     });
   } catch (e: any) {
-    console.log(e);
     // the specific error message depends on the provider
     if (e instanceof OAuth2RequestError) {
       // invalid code
@@ -94,9 +106,6 @@ export async function GET(request: Request): Promise<Response> {
         status: 400,
       });
     }
-    return new Response(e.message, {
-      status: 500,
-    });
   }
 }
 

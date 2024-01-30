@@ -75,7 +75,7 @@ export const lucia = new Lucia(adapter, {
     expires: false,
     attributes: {
       // set to `true` when using HTTPS
-      secure: false, // process.env.NODE_ENV === "production",
+      secure: true, // process.env.NODE_ENV === "production",
     },
   },
   getSessionAttributes: (attributes) => {

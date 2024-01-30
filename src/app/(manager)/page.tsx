@@ -6,7 +6,7 @@ import { dayjs } from "@/lib/dayjs";
 import Link from "next/link";
 
 const fetchApps = async () => {
-  const res = await fetch("http://deploy.nohaxito.xyz:3000/api/apps");
+  const res = await fetch("https://console.nohaxito.xyz/api/apps");
   const data: any[] = await res.json();
   return data;
 };

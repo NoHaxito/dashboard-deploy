@@ -11,7 +11,7 @@ import Link from "next/link";
 async function fetchApp(appId: string) {
   try {
     const req = await fetch(
-      "http://deploy.nohaxito.xyz:3000/api/apps/" + appId
+      "https://console.nohaxito.xyz/api/apps/" + appId
     );
     const res: any = await req.json();
     if (res.error) {

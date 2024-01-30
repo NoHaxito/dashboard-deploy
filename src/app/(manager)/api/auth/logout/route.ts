@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const { session } = await validateRequest();
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" });
+    return redirect("/auth/login");
   }
   await lucia.invalidateSession(session.id);
 

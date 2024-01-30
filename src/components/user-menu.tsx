@@ -9,17 +9,15 @@ import {
 import {
   ArrowSquareOut,
   Book,
-  Gear,
   Lifebuoy,
   SignOut,
   User,
+  CreditCard,
 } from "@phosphor-icons/react";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export function UserMenu({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,8 +29,8 @@ export function UserMenu({ children }: { children: React.ReactNode }) {
         <DropdownMenuItem asChild rounded="xl" left={<User />}>
           <Link href="/account">Account</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem rounded="xl" left={<Gear />}>
-          Settings
+        <DropdownMenuItem asChild rounded="xl" left={<CreditCard />}>
+          <Link href="/account/billing">Billing</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
